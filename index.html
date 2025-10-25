@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="mr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Resident Portal — Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-1: #0f6f6a; 
+      --bg-2: #0fa89a; 
+      --accent: #f5b041; 
+      --muted: #7b8894;
+      --card: rgba(255,255,255,0.97);
+      --glass: rgba(255,255,255,0.06);
+    }
+    *{box-sizing:border-box;}
+    html,body{height:100%;margin:0;font-family:'Inter',system-ui,Arial,sans-serif;display:flex;align-items:center;justify-content:center;padding:24px;background:linear-gradient(135deg,var(--bg-1) 0%,#123f3b 40%,#071e1d 100%);color:#102027;-webkit-font-smoothing:antialiased;}
+    .login-shell{width:100%;max-width:1100px;min-height:640px;background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.02));border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(4,12,15,0.55);display:grid;grid-template-columns:1fr 460px;backdrop-filter: blur(4px);}
+    .hero{position:relative;padding:28px;display:flex;flex-direction:column;justify-content:space-between;gap:18px;background: linear-gradient(90deg, rgba(2,8,10,0.65) 0%, rgba(2,8,10,0.42) 40%, rgba(2,8,10,0.20) 100%), url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1600&q=60') center/cover no-repeat;color:#fff;transition:background-position 0.15s linear;will-change:background-position;}
+    .hero .glass{background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));padding:12px;border-radius:10px;backdrop-filter: blur(6px);}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo-circle{width:56px;height:56px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),#ff9f3a);color:#082022;font-weight:700;font-family:Poppins;font-size:20px;box-shadow:0 6px 18px rgba(0,0,0,0.35);}
+    .brand h1{margin:0;font-family:Poppins;font-weight:700;font-size:20px;letter-spacing:0.2px;text-shadow:0 4px 18px rgba(2,8,10,0.5)}
+    .brand p{margin:0;color:rgba(255,255,255,0.92);font-size:13px}
+    .hero h2{font-family:Poppins;color:#fff;margin:8px 0 10px;font-size:34px;line-height:1.02;text-shadow:0 8px 30px rgba(2,8,10,0.6)}
+    .hero p.lead{color:rgba(255,255,255,0.9);margin:0 0 20px;font-size:15px;text-shadow:0 6px 18px rgba(2,8,10,0.5)}
+    .features{display:flex;flex-wrap:wrap;gap:12px}
+    .chip{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.08);color:#f7fffd;padding:8px 12px;border-radius:999px;font-size:13px;backdrop-filter: blur(6px)}
+    .hero-stats{display:flex;gap:12px;align-items:center;flex-wrap:wrap;color:rgba(255,255,255,0.95);}
+    .stat{background:rgba(255,255,255,0.04);padding:12px;border-radius:10px;min-width:120px;box-shadow:inset 0 -1px 0 rgba(255,255,255,0.02)}
+    .stat h3{margin:0;font-size:18px}
+    .stat p{margin:3px 0 0;color:rgba(255,255,255,0.75);font-size:13}
+    .card{padding:38px 36px;background:var(--card);display:flex;flex-direction:column;gap:18px;align-items:stretch;justify-content:center}
+    .card .title{font-family:Poppins;font-size:22px;margin:0;color:#0c2d2a}
+    .card p.subtitle{margin:0;color:var(--muted);font-size:14px}
+    form{display:flex;flex-direction:column;gap:14px;margin-top:10px}
+    .field{position:relative;margin-top:6px}
+    input[type="text"], input[type="password"]{width:100%;padding:16px 44px 16px 14px;border-radius:12px;border:1px solid #e6eef0;background:transparent;font-size:15px;outline:none;transition:box-shadow .2s, transform .15s, border-color .15s, background-color .15s;}
+    input[type="text"]:hover, input[type="password"]:hover {background-color: rgba(15,111,106,0.05);border-color: var(--bg-2);}
+    input:focus{box-shadow:0 10px 28px rgba(15,111,106,0.12);border-color:var(--bg-2);transform:translateY(-1px)}
+    label.floating{position:absolute;left:14px;top:50%;transform: translateY(-50%);pointer-events:none;color:var(--muted);font-size:14px;font-weight:500;background:transparent;padding:0 4px;transition:all .18s ease;}
+    input:focus + label.floating,input:not(:placeholder-shown) + label.floating{top:-8px;font-size:12px;color:var(--bg-1);font-weight:600;background:white;padding:0 6px;border-radius:4px;}
+    .toggle-pass{position:absolute;right:10px;top:50%;transform:translateY(-50%);border:none;background:transparent;padding:6px;border-radius:8px;cursor:pointer;display:grid;place-items:center}
+    .toggle-pass svg{width:20px;height:20px;fill:none;stroke:#6b7580;stroke-width:1.6;transition:all .15s}
+    .toggle-pass.revealed svg{stroke:var(--bg-1)}
+    .pass-row{display:flex;align-items:center;gap:12px;justify-content:space-between}
+    .forgot{font-size:13px;color:var(--bg-1);text-decoration:none}
+    .btn{display:inline-block;padding:12px 18px;border-radius:12px;background:linear-gradient(90deg,var(--bg-2),var(--bg-1));color:white;font-weight:600;text-align:center;border:none;cursor:pointer;font-size:15px;box-shadow:0 8px 26px rgba(15,111,106,0.2);transition: transform .15s, box-shadow .15s, background .15s;}
+    .btn:hover {transform: translateY(-2px);box-shadow: 0 12px 30px rgba(15,111,106,0.3);background: linear-gradient(90deg,var(--bg-1),var(--bg-2));}
+    .btn:active{transform:translateY(1px)}
+    .alt{font-size:13px;color:var(--muted);text-align:center}
+    .socials{display:flex;gap:8px;justify-content:center}
+    .sbtn{border-radius:10px;padding:10px 12px;border:1px solid #eef4f4;background:linear-gradient(180deg,#fff,#f8fbfb);cursor:pointer}
+    .hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(180deg,transparent,rgba(2,6,8,0.45));pointer-events:none}
+    .msg {text-align:center;font-size:14px;margin-top:6px}
+    .msg.success {color: #0a7a4d; font-weight:600}
+    .msg.error {color: #b93b3b; font-weight:600}
+    @media (max-width:980px){.login-shell{grid-template-columns:1fr;min-height:760px}.hero{order:2;padding:22px}.card{order:1;border-radius:0 0 18px 18px}.hero h2{font-size:28px}}
+  </style>
+</head>
+<body>
+  <div class="login-shell">
+    <aside class="hero" id="hero">
+      <div class="glass">
+        <div class="brand">
+          <div class="logo-circle">SP</div>
+          <div>
+            <h1>SmartPlace Society</h1>
+            <p>Community • Convenience • Care</p>
+          </div>
+        </div>
+        <div class="welcome">
+          <h2>Welcome Home</h2>
+          <p class="lead">Your society at your fingertips — pay bills, raise complaints, check events and more. Secure login for residents.</p>
+          <div class="features">
+            <div class="chip">Pay Bills</div>
+            <div class="chip">Raise Complaint</div>
+            <div class="chip">Book Facility</div>
+            <div class="chip">Visitor Pass</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><h3>48</h3><p>Flats</p></div>
+        <div class="stat"><h3>2</h3><p>Events this week</p></div>
+        <div class="stat"><h3>4</h3><p>Open Complaints</p></div>
+      </div>
+    </aside>
+
+    <main class="card" aria-labelledby="loginTitle">
+      <div>
+        <h2 id="loginTitle" class="title">Resident Login</h2>
+        <p class="subtitle">Mobile number only — please enter your 10-digit mobile number below</p>
+      </div>
+
+      <form id="loginForm" onsubmit="return handleLogin(event)">
+        <div class="field">
+          <input id="flat" name="flat" type="text" placeholder=" " autocomplete="off" required />
+          <label for="flat" class="floating">Mobile number (10 digits)</label>
+        </div>
+
+        <div class="field" style="margin-bottom:2px;">
+          <input id="password" name="password" type="password" placeholder=" " autocomplete="current-password" required />
+          <label for="password" class="floating">Password</label>
+          <button type="button" class="toggle-pass" id="togglePass" aria-label="Show password">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z" stroke-linecap="round" stroke-linejoin="round"></path>
+              <circle cx="12" cy="12" r="3" stroke-linecap="round" stroke-linejoin="round"></circle>
+            </svg>
+          </button>
+        </div>
+
+        <div class="pass-row" style="margin-top:6px;">
+          <div></div>
+          <a href="#" class="forgot">Forgot password?</a>
+        </div>
+
+        <button class="btn" type="submit">Login</button>
+
+        <div style="display:flex;gap:12px;align-items:center;justify-content:center;margin-top:6px">
+          <span class="alt">or login with</span>
+        </div>
+
+        <div class="socials" aria-hidden>
+          <button type="button" class="sbtn" title="Login with Google">G</button>
+          <button type="button" class="sbtn" title="Login with Facebook">f</button>
+          <button type="button" class="sbtn" title="Login with Apple"></button>
+        </div>
+
+        <!-- LINK TO SIGNUP -->
+        <p class="alt">Don’t have an account? <a href="Sign_up.html">Sign up</a></p>
+        <div id="msg" class="msg" aria-live="polite"></div>
+      </form>
+
+      <footer style="margin-top:10px;text-align:center;color:var(--muted);font-size:13px">
+        <div>Need help? Call <strong>+91 96234 71084</strong></div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    (function(){
+      const hero = document.getElementById('hero');
+      const factor = 0.15;
+      function update(){ const sc = window.scrollY || window.pageYOffset; hero.style.backgroundPosition = `center ${-sc*factor}px`; }
+      window.addEventListener('scroll', update, {passive:true});
+      window.addEventListener('load', update);
+      window.addEventListener('resize', update);
+    })();
+
+    (function(){
+      const btn=document.getElementById('togglePass');
+      const pwd=document.getElementById('password');
+      let revealed=false;
+      btn.addEventListener('click', ()=>{
+        revealed=!revealed;
+        pwd.type = revealed ? 'text':'password';
+        btn.classList.toggle('revealed',revealed);
+      });
+    })();
+
+    const DEMO_PASS="pass123";
+    function showMsg(text,type){const el=document.getElementById('msg');el.textContent=text;el.className='msg '+(type==='success'?'success':'error');}
+    function isValidMobile(value){if(!value) return false; const v=value.trim(); if(/^[0-9]{10}$/.test(v)) return {kind:'mobile',value:v}; return false;}
+    function handleLogin(e){
+      e.preventDefault();
+      const input=document.getElementById('flat').value.trim();
+      const pwd=document.getElementById('password').value;
+      const check=isValidMobile(input);
+      if(!check){showMsg("Please enter a valid 10-digit Mobile Number.","error"); return false;}
+      if(!pwd){showMsg("Please enter password.","error"); return false;}
+      if(pwd===DEMO_PASS){window.location.href='dashboard.html';} else {showMsg("Invalid username or password.","error");}
+      return false;
+    }
+    (function(){
+      const flat=document.getElementById('flat');
+      const pwd=document.getElementById('password');
+      flat.addEventListener('input',()=>{document.getElementById('msg').textContent='';document.getElementById('msg').className='msg';});
+      pwd.addEventListener('input',()=>{document.getElementById('msg').textContent='';document.getElementById('msg').className='msg';});
+    })();
+  </script>
+</body>
+</html>
