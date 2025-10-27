@@ -9,7 +9,7 @@
 body,html{height:100%;}
 body{background: linear-gradient(135deg,#0f6f6a 0%,#123f3b 40%,#071e1d 100%);display:flex;justify-content:center;align-items:center;padding:20px;}
 .signup-shell{width:100%;max-width:1100px;display:grid;grid-template-columns:1fr 400px;border-radius:18px;overflow:hidden;min-height:640px;}
-.hero{position:relative;background:url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1600&q=60') center/cover no-repeat;display:flex;flex-direction:column;justify-content:flex-start;padding:28px;color:#fff;overflow:hidden;}
+.hero{position:relative;background:url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1600&q=60') center/cover no-repeat;display:flex;flex-direction:column;justify-content:flex-start;padding:28px;color:#fff;Overflow:hidden;}
 .hero::before{content:"";position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.25));z-index:1;}
 .hero-content{position:relative;z-index:2;display:flex;flex-direction:column;gap:18px;background: rgba(255,255,255,0.06);backdrop-filter: blur(6px);padding:12px 16px;border-radius:12px;}
 .brand{display:flex;gap:12px;align-items:center;}
@@ -59,29 +59,30 @@ button:active{transform:translateY(1px);}
 
   <main class="card">
     <h2>Create Account</h2>
-    <form>
+    <!-- form action + method added below, only attributes changed (no design/JS change) -->
+    <form action="signup.php" method="POST">
       <div class="field">
-        <input type="text" placeholder=" " required>
+        <input type="text" name="name" placeholder=" " required>
         <label class="floating">Full Name</label>
       </div>
       <div class="field">
-        <input type="email" placeholder=" " required>
+        <input type="email" name="email" placeholder=" ">
         <label class="floating">Email</label>
       </div>
       <div class="field">
-        <input type="text" pattern="\d+" placeholder=" " required>
+        <input type="text" name="flat_no" pattern="\d+" placeholder=" " required>
         <label class="floating">Flat Number</label>
       </div>
       <div class="field">
-        <input type="tel" pattern="[0-9]{10}" placeholder=" " required>
+        <input type="tel" name="mobile_no" pattern="[0-9]{10}" placeholder=" " required>
         <label class="floating">Mobile Number</label>
       </div>
       <div class="field">
-        <input type="password" placeholder=" " required>
+        <input type="password" name="password" placeholder=" " required>
         <label class="floating">Password</label>
       </div>
       <div class="field">
-        <input type="password" placeholder=" " required>
+        <input type="password" name="confirm_password" placeholder=" " required>
         <label class="floating">Confirm Password</label>
       </div>
       <button type="submit">Sign Up</button>
