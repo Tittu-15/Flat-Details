@@ -95,9 +95,10 @@
         <p class="subtitle">Mobile number only — please enter your 10-digit mobile number below</p>
       </div>
 
-      <form id="loginForm" onsubmit="return handleLogin(event)">
+      <!-- form changed to POST to server-side login.php; design unchanged -->
+      <form id="loginForm" action="login.php" method="POST">
         <div class="field">
-          <input id="flat" name="flat" type="text" placeholder=" " autocomplete="off" required />
+          <input id="flat" name="mobile_no" type="text" placeholder=" " autocomplete="off" required />
           <label for="flat" class="floating">Mobile number (10 digits)</label>
         </div>
 
@@ -141,6 +142,7 @@
   </div>
 
   <script>
+    // Parallax background (kept)
     (function(){
       const hero = document.getElementById('hero');
       const factor = 0.15;
@@ -150,6 +152,7 @@
       window.addEventListener('resize', update);
     })();
 
+    // Toggle password visibility (kept)
     (function(){
       const btn=document.getElementById('togglePass');
       const pwd=document.getElementById('password');
@@ -161,19 +164,7 @@
       });
     })();
 
-    const DEMO_PASS="pass123";
-    function showMsg(text,type){const el=document.getElementById('msg');el.textContent=text;el.className='msg '+(type==='success'?'success':'error');}
-    function isValidMobile(value){if(!value) return false; const v=value.trim(); if(/^[0-9]{10}$/.test(v)) return {kind:'mobile',value:v}; return false;}
-    function handleLogin(e){
-      e.preventDefault();
-      const input=document.getElementById('flat').value.trim();
-      const pwd=document.getElementById('password').value;
-      const check=isValidMobile(input);
-      if(!check){showMsg("Please enter a valid 10-digit Mobile Number.","error"); return false;}
-      if(!pwd){showMsg("Please enter password.","error"); return false;}
-      if(pwd===DEMO_PASS){window.location.href='dashboard.html';} else {showMsg("Invalid username or password.","error");}
-      return false;
-    }
+    // Keep small listeners that clear messages on input (kept)
     (function(){
       const flat=document.getElementById('flat');
       const pwd=document.getElementById('password');
